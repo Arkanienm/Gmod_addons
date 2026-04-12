@@ -1,3 +1,5 @@
+////////-----PLAYER_COMMANDS-----////////
+
 hook.Add("PlayerSay", "CommandSuperPouvoir", function(ply, text)
 
 	local message = string.lower(text)
@@ -45,7 +47,10 @@ hook.Add("PlayerSay", "CommandSuperPouvoir", function(ply, text)
 
 end)
 
-hook.Add("OnDamagedByExplosion")
+////////-----PLAYER_COMMANDS-----////////
+
+
+////////-----BARIL_BOOM-----////////
 
 hook.Add("PlayerSay", "FaireApparaitreBaril", function(ply, text)
 	
@@ -81,6 +86,11 @@ hook.Add("PlayerSay", "FaireApparaitreBaril", function(ply, text)
 
 end)
 
+////////-----BARIL_BOOM-----////////
+
+
+////////-----FALL_DAMAGE_SOUND-----////////
+
 if SERVER then
     resource.AddFile("resource/fonts/GalaferaMedium-V4xze.ttf")
 
@@ -89,6 +99,9 @@ if SERVER then
     end)
 end
 
+////////-----FALL_DAMAGE_SOUND-----////////
+
+////////-----HUD_CLIENT-----////////
 if (CLIENT) then
 	
 	surface.CreateFont ("Galafera_Med", {
@@ -116,9 +129,6 @@ if (CLIENT) then
 		
 		local ply = LocalPlayer()
 
-		
-		surface.SetFont("Galafera Med")
-
 		if not IsValid(ply) or not ply:Alive() then return end
 
 		local pv = ply:Health()
@@ -143,3 +153,5 @@ if (CLIENT) then
 		draw.SimpleText("Santé: " .. pv,  "Galafera_Med", 200, ScrH() - 85 , Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	end)
 end
+
+////////-----HUD_CLIENT-----////////
