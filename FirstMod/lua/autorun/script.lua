@@ -124,33 +124,53 @@ if (CLIENT) then
 			return false
 		end
 	end)
-
-	hook.Add("HUDPaint", "MaBarreDeViePerso", function()
+	
+	hook.Add("HUDPaint", "MesBarresPerso", function()
 		
 		local ply = LocalPlayer()
 
 		if not IsValid(ply) or not ply:Alive() then return end
 
+           ////////-----HEALTH_BAR-----////////
 		local pv = ply:Health()
 		local max_pv = ply:GetMaxHealth()
-
 		pv = math.Clamp(pv, 0, max_pv)
-
-		local couleurVie
-		if (pv > 25) then
-			couleurVie = Color(50, 200, 50, 255)
-		else
-			couleurVie = Color(255, 50, 50, 255)
-		end
 
 		draw.RoundedBox(8, 50, ScrH() - 100, 300, 30, Color(0, 0, 0, 150))
 
-		local pourcentage = pv / max_pv
-		local largeur_rouge = 300 * pourcentage
+		local pourcentPV = pv / max_pv
+		local largeur_rouge = 300 * pourcentPV
+
+		local couleurVie
+		if (pourcentPV >= 0.5) then
+			couleurVie = Color(50, 200, 50, 255)
+		else if (pourcentPV < 0.5 && pourcentPV > 0.5)
+			couleurVie = Color(255, 123, 0)
+		else if (pourcentPV <= 0.25)
+			couleurVie = Color(255, 50, 50, 255)
+		end
 
 		draw.RoundedBox(8, 50, ScrH() - 100, largeur_rouge, 30, couleurVie)
 
 		draw.SimpleText("Santé: " .. pv,  "Galafera_Med", 200, ScrH() - 85 , Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+           ////////-----HEALTH_BAR-----////////
+
+		   ////////-----ARMOR_BAR-----////////
+
+		local armor = ply:Armor()
+		local max_armor = ply:GetMaxArmor()
+		armor = math.Clamp(armor, 0, max_armor)
+
+		draw.RoundedBox(8, 50, ScrH() - 200, 300, 30, Color(0, 0, 0, 150))
+
+		local pourcentArmor = armor / max_armor
+		local largeur_bleu = 300 * pourcentArmor
+
+		draw.RoundedBox(8, 50, ScrH() - 200, largeur_bleu, 30, Color(0, 110, 255))
+
+		draw.SimpleText("Armure: " .. armor,  "Galafera_Med", 200, ScrH() - 85 , Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		   ////////-----ARMOR_BAR-----////////
+
 	end)
 end
 
